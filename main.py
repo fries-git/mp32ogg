@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
-import ffmpeg as ffmpreg
+import ffmpeg
 from pathlib import Path
 
 def process(file):
@@ -9,14 +9,14 @@ def process(file):
 
     try:
         (
-            ffmpreg
+            ffmpeg
             .input(str(file))
             .output(str(output), format="ogg", acodec="libvorbis")
             .overwrite_output()
             .run(quiet=True)
         )
 
-    except ffmpreg.Error as e:
+    except ffmpeg.Error as e:
         print(f"Failed with FFMPEG error: {e}")
 
     except Exception as e:
