@@ -56,24 +56,32 @@ def process(file):
 
             except ffmpeg.Error as e:
                 print(f"Failed with FFMPEG error: {e}")
-
             except Exception as e:
                 print(f"Failed with misc. error: {e}")
+
         else:
             print(f"File: {Path(file).name} is already ogg!")
+
     else:
         print(f"File: {Path(file).name} is not of supported type.")
+
 print("Welcome to mp32ogg, I can't think of a clever acronym or name so eat my short.")
 
 root = tk.Tk()
 root.withdraw()
 
-directory = Path(filedialog.askdirectory(title="Select a Folder"))
-print(f"Converting all files in {directory} to ogg.")
+directory = Path(filedialog.askdirectory(title="Select folder to convert"))
+confirm = input(f"Do you want to convert all files in {directory} to ogg? y/n: ")
+if confirm.lower() == "y":
+    print(f"Converting all files in {directory} to ogg.")
 
-files = [str(f) for f in directory.iterdir() if f.is_file()]
+    files = [str(f) for f in directory.iterdir() if f.is_file()]
 
-for file in files:
-    process(file)
+    for file in files:
+        process(file)
 
-print("Done!")
+    print("Done!")
+else:
+    print("Canceled.")
+
+print("Thanks for using MP32OGG!")
